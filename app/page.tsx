@@ -1,9 +1,16 @@
+import type { Metadata } from "next";
 import Link from "next/link";
 import { MakeCarousel } from "@/components/MakeCarousel";
 import { Photo } from "@/components/Photo";
 import { VehicleCard } from "@/components/VehicleCard";
+import { defaultDescription, pageSeo } from "@/lib/seo";
 import { brand, corridors, steps } from "@/lib/site";
 import { bodies, makes, vehicles } from "@/lib/vehicles";
+
+export const metadata: Metadata = pageSeo({
+  description: defaultDescription,
+  path: "/",
+});
 
 const selectClass =
   "h-12 w-full border border-white/10 bg-black/50 px-3 text-sm text-ivory outline-none focus:border-gold";

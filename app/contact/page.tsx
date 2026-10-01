@@ -1,12 +1,15 @@
 import type { Metadata } from "next";
 import { InquiryForm } from "@/components/InquiryForm";
 import { PageIntro } from "@/components/PageIntro";
+import { pageSeo } from "@/lib/seo";
 import { brand } from "@/lib/site";
 
-export const metadata: Metadata = {
-  title: "Contact",
-  description: "Request a car from Luxmotorsdubai. Sales, import, and export from Al Quoz.",
-};
+export const metadata: Metadata = pageSeo({
+  title: "Request a car",
+  description:
+    "Ask Luxmotorsdubai for a car. Sales, import, and export from Warehouse 5, Al Quoz. Send the brief on WhatsApp.",
+  path: "/contact",
+});
 
 function one(value: string | string[] | undefined) {
   return Array.isArray(value) ? value[0] ?? "" : value ?? "";

@@ -1,16 +1,31 @@
 import type { Metadata } from "next";
 import Link from "next/link";
+import { JsonLd } from "@/components/JsonLd";
 import { PageIntro } from "@/components/PageIntro";
+import { pageSeo } from "@/lib/seo";
 import { faqs, steps } from "@/lib/site";
 
-export const metadata: Metadata = {
-  title: "Process",
-  description: "How Luxmotorsdubai sells, sources, prices, documents, and ships a vehicle from Dubai.",
-};
+export const metadata: Metadata = pageSeo({
+  title: "How a car is sold and shipped",
+  description:
+    "How Luxmotorsdubai sources, prices, documents, and ships a car from Al Quoz through Jebel Ali. FOB, C&F, and CIF explained.",
+  path: "/process",
+});
 
 export default function ProcessPage() {
   return (
     <>
+      <JsonLd
+        data={{
+          "@context": "https://schema.org",
+          "@type": "FAQPage",
+          mainEntity: faqs.map((faq) => ({
+            "@type": "Question",
+            name: faq.q,
+            acceptedAnswer: { "@type": "Answer", text: faq.a },
+          })),
+        }}
+      />
       <PageIntro
         kicker="How it moves"
         title="From the brief to the bill of lading."

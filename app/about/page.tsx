@@ -1,12 +1,15 @@
 import type { Metadata } from "next";
 import { PageIntro } from "@/components/PageIntro";
 import { Photo } from "@/components/Photo";
+import { pageSeo } from "@/lib/seo";
 import { brand, principles } from "@/lib/site";
 
-export const metadata: Metadata = {
-  title: "House",
-  description: "Luxmotorsdubai sells, imports, and exports vehicles from Al Quoz, Dubai.",
-};
+export const metadata: Metadata = pageSeo({
+  title: "About Lux Motors Dubai",
+  description:
+    "Lux Motors sells, imports, and exports vehicles from Warehouse 5, Al Quoz, Dubai. Viewing is in the yard. Export loading is at Jebel Ali.",
+  path: "/about",
+});
 
 const makes = [
   "Audi",

@@ -1,12 +1,15 @@
 import type { Metadata } from "next";
 import { InventoryBrowser } from "@/components/InventoryBrowser";
 import { PageIntro } from "@/components/PageIntro";
+import { pageSeo } from "@/lib/seo";
 import { vehicles, type StockQuery } from "@/lib/vehicles";
 
-export const metadata: Metadata = {
-  title: "Stock",
-  description: "Search Luxmotorsdubai yard stock by make, body, and FOB Jebel Ali band.",
-};
+export const metadata: Metadata = pageSeo({
+  title: "Cars for sale in Dubai",
+  description:
+    "Luxury, exotic, sports, and SUV cars for sale from the Al Quoz yard. Filter by make, body, and FOB Jebel Ali price.",
+  path: "/inventory",
+});
 
 function one(value: string | string[] | undefined) {
   return Array.isArray(value) ? value[0] ?? "" : value ?? "";

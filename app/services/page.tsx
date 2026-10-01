@@ -1,12 +1,15 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { PageIntro } from "@/components/PageIntro";
+import { pageSeo } from "@/lib/seo";
 import { services } from "@/lib/site";
 
-export const metadata: Metadata = {
-  title: "Services",
-  description: "Import into the UAE and export from Dubai. Yard stock, private search, documents, and shipping.",
-};
+export const metadata: Metadata = pageSeo({
+  title: "Car import and export",
+  description:
+    "Import a car into the UAE or export one from Dubai. Yard stock, private search, export documents, RoRo, container, and marine insurance.",
+  path: "/services",
+});
 
 export default function ServicesPage() {
   return (

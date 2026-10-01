@@ -3,7 +3,9 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import { FreightEstimate } from "@/components/FreightEstimate";
 import { Gallery } from "@/components/Gallery";
+import { JsonLd } from "@/components/JsonLd";
 import { VehicleCard } from "@/components/VehicleCard";
+import { pageSeo, siteUrl } from "@/lib/seo";
 import { brand } from "@/lib/site";
 import { formatUsd, getVehicle, vehicles } from "@/lib/vehicles";
 
@@ -16,11 +18,14 @@ export function generateStaticParams() {
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { slug } = await params;
   const vehicle = getVehicle(slug);
-  if (!vehicle) return { title: "Car not found" };
-  return {
-    title: `${vehicle.make} ${vehicle.model}`,
-    description: `${vehicle.make} ${vehicle.model} · FOB ${brand.port} ${formatUsd(vehicle.fobUsd)} · ${vehicle.status}.`,
-  };
+  if (!vehicle) return { title: "Car not found", robots: { index: false, follow: true } };
+  const name = `${vehicle.make} ${vehicle.model}`;
+  return pageSeo({
+    title: `${name} for sale`,
+    description: `${name} ${vehicle.trim} from Al Quoz. Asking ${formatUsd(vehicle.fobUsd)} FOB ${brand.port}. ${vehicle.status}. Freight is quoted separately.`,
+    path: `/inventory/${vehicle.slug}`,
+    image: `/photos/${vehicle.images[0]}.webp`,
+  });
 }
 
 export default async function VehiclePage({ params }: Props) {
@@ -44,6 +49,39 @@ export default async function VehiclePage({ params }: Props) {
 
   return (
     <article className="mx-auto max-w-6xl px-4 pb-16 pt-24 sm:px-5 sm:pb-20 sm:pt-28">
+      <JsonLd
+        data={{
+          "@context": "https://schema.org",
+          "@type": "BreadcrumbList",
+          itemListElement: [
+            { "@type": "ListItem", position: 1, name: "Home", item: siteUrl },
+            { "@type": "ListItem", position: 2, name: "Stock", item: `${siteUrl}/inventory` },
+            { "@type": "ListItem", position: 3, name, item: `${siteUrl}/inventory/${vehicle.slug}` },
+          ],
+        }}
+      />
+      <JsonLd
+        data={{
+          "@context": "https://schema.org",
+          "@type": "Vehicle",
+          name,
+          brand: { "@type": "Brand", name: vehicle.make },
+          model: vehicle.model,
+          vehicleConfiguration: vehicle.body,
+          image: vehicle.images.map((id) => `${siteUrl}/photos/${id}.webp`),
+          url: `${siteUrl}/inventory/${vehicle.slug}`,
+          description: vehicle.notes[0],
+          offers: {
+            "@type": "Offer",
+            price: vehicle.fobUsd,
+            priceCurrency: "USD",
+            availability: vehicle.status === "In the Dubai yard" ? "https://schema.org/InStock" : "https://schema.org/PreOrder",
+            url: `${siteUrl}/inventory/${vehicle.slug}`,
+            seller: { "@type": "AutoDealer", name: brand.name, url: siteUrl },
+            description: `Asking price FOB ${brand.port}. Freight, insurance, and destination duty are separate.`,
+          },
+        }}
+      />
       <p className="text-[0.72rem] uppercase tracking-[0.2em] text-mute">
         <Link href="/inventory" className="hover:text-gold">
           Stock
