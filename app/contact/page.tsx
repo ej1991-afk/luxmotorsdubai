@@ -24,7 +24,7 @@ export default async function ContactPage({
       <PageIntro
         kicker="Contact"
         title="Tell us the port, then the car."
-        lede="A useful brief names the destination, the steering, and whether you are buying yard stock or asking us to find a car. Call or WhatsApp the desk to confirm the offer. This form keeps the note on the page."
+        lede="A useful brief names the destination, the steering, and whether you are buying yard stock or asking us to find a car. Send it on WhatsApp and the desk confirms the offer in writing."
       />
       <section className="mx-auto grid max-w-6xl gap-10 px-4 py-12 sm:px-5 lg:grid-cols-[1fr_0.8fr] lg:py-16">
         <InquiryForm vehicleSlug={one(params.vehicle)} />

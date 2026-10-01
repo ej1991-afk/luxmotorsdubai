@@ -1,10 +1,31 @@
 "use client";
 
 import { useState } from "react";
+import { brand } from "@/lib/site";
 import { vehicles } from "@/lib/vehicles";
 
 const fieldClass =
   "w-full border border-line bg-ink px-3 py-3 text-base text-ivory outline-none focus:border-gold";
+
+function whatsappRequestUrl(data: FormData) {
+  const slug = String(data.get("vehicle") || "");
+  const vehicle = vehicles.find((item) => item.slug === slug);
+  const car = vehicle ? `${vehicle.make} ${vehicle.model}` : "Not tied to a car";
+  const message = [
+    "Luxmotorsdubai request",
+    "",
+    `Name: ${data.get("name")}`,
+    `Phone: ${data.get("phone")}`,
+    `Email: ${data.get("email")}`,
+    `Interest: ${data.get("interest")}`,
+    `Destination: ${data.get("country")}`,
+    `Car: ${car}`,
+    "",
+    String(data.get("brief") || ""),
+  ].join("\n");
+
+  return `${brand.whatsappHref}?text=${encodeURIComponent(message)}`;
+}
 
 export function InquiryForm({ vehicleSlug = "" }: { vehicleSlug?: string }) {
   const [sent, setSent] = useState(false);
@@ -13,10 +34,10 @@ export function InquiryForm({ vehicleSlug = "" }: { vehicleSlug?: string }) {
   if (sent) {
     return (
       <div className="border border-gold/60 bg-panel px-6 py-10">
-        <p className="kicker">Noted on this page</p>
-        <h2 className="display mt-3 text-4xl">Call the desk to confirm the car.</h2>
+        <p className="kicker">WhatsApp</p>
+        <h2 className="display mt-3 text-4xl">The request is open in WhatsApp.</h2>
         <p className="mt-3 max-w-md text-sm leading-6 text-mute">
-          This form does not send email. A sale is confirmed by phone, WhatsApp, or email, with the price basis written on the invoice.
+          Send that message to the desk. The offer is confirmed in writing, with the price basis on the invoice.
         </p>
         <button
           type="button"
@@ -34,6 +55,8 @@ export function InquiryForm({ vehicleSlug = "" }: { vehicleSlug?: string }) {
       className="grid gap-4"
       onSubmit={(event) => {
         event.preventDefault();
+        const url = whatsappRequestUrl(new FormData(event.currentTarget));
+        window.open(url, "_blank", "noopener,noreferrer");
         setSent(true);
       }}
     >
@@ -96,7 +119,7 @@ export function InquiryForm({ vehicleSlug = "" }: { vehicleSlug?: string }) {
         type="submit"
         className="inline-flex w-fit bg-gold px-5 py-3 text-[0.68rem] font-semibold uppercase tracking-[0.18em] text-ink hover:bg-gold-bright"
       >
-        Save this request
+        Send on WhatsApp
       </button>
     </form>
   );
