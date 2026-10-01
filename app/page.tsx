@@ -15,15 +15,15 @@ export default function HomePage() {
     <>
       <section className="relative min-h-[100svh]">
         <Photo
-          id="photo-1492144534655-ae79c964c9d7"
-          alt="A dark performance car at night"
+          id="hero-port"
+          alt="Hundreds of cars lined up beside a car carrier loading at sunset"
           fill
           priority
-          className="object-cover"
+          className="object-cover object-[72%_center]"
           sizes="100vw"
         />
-        <div className="absolute inset-0 bg-gradient-to-r from-black via-black/70 to-black/25" />
-        <div className="absolute inset-0 bg-gradient-to-t from-black via-black/10 to-black/55" />
+        <div className="absolute inset-0 bg-gradient-to-r from-black/85 via-black/45 to-black/10" />
+        <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-black/35" />
 
         <div className="relative mx-auto flex min-h-[100svh] max-w-6xl flex-col justify-end px-4 pb-8 pt-24 sm:px-5 sm:pb-10 sm:pt-32">
           <p className="kicker">Vehicle sales · import & export</p>
@@ -147,6 +147,52 @@ export default function HomePage() {
             </Link>
           </article>
         </div>
+      </section>
+
+      <section className="border-b border-line bg-ink">
+        <div className="grid lg:grid-cols-5">
+          <div className="relative min-h-[26rem] lg:col-span-3 lg:min-h-[36rem]">
+            <Photo
+              id="export-yard"
+              alt="Thousands of cars lined up in rows at an export terminal"
+              fill
+              className="object-cover"
+              sizes="(min-width: 1024px) 60vw, 100vw"
+            />
+            <div className="absolute inset-0 bg-gradient-to-t from-black via-black/25 to-black/20" />
+            <div className="absolute inset-x-0 bottom-0 max-w-xl p-6 sm:p-10">
+              <p className="kicker">Export loading</p>
+              <h2 className="display mt-3 text-4xl text-ivory sm:text-5xl">A yard of cars, then the vessel.</h2>
+              <p className="mt-3 text-sm leading-6 text-ivory/80">
+                Volume waits in rows, then rolls onto a car carrier. From {brand.port} that is usually RoRo. The bill of lading comes back. Duty stays at the far port.
+              </p>
+            </div>
+          </div>
+          <div className="relative min-h-[22rem] lg:col-span-2 lg:min-h-[36rem]">
+            <Photo
+              id="export-vessel"
+              alt="Two car carriers alongside at an export port"
+              fill
+              className="object-cover"
+              sizes="(min-width: 1024px) 40vw, 100vw"
+            />
+            <div className="absolute inset-0 bg-gradient-to-t from-black via-black/10 to-transparent" />
+            <p className="absolute inset-x-0 bottom-0 p-6 text-sm leading-6 text-ivory/85 sm:p-10">
+              One sailing can take the lot. The metal is the car. The ship is the freight.
+            </p>
+          </div>
+        </div>
+        <p className="mx-auto max-w-6xl px-4 py-3 text-[0.65rem] leading-5 text-mute sm:px-5">
+          Yard photograph by Martina Nolte,{" "}
+          <a className="underline decoration-line underline-offset-2 hover:text-gold" href="https://creativecommons.org/licenses/by-sa/3.0/de/deed.en">
+            CC BY-SA 3.0 DE
+          </a>
+          . Vessel photograph by Dietmar Rabich,{" "}
+          <a className="underline decoration-line underline-offset-2 hover:text-gold" href="https://creativecommons.org/licenses/by-sa/4.0/deed.en">
+            CC BY-SA 4.0
+          </a>
+          .
+        </p>
       </section>
 
       <section className="mx-auto max-w-6xl px-4 py-16 sm:px-5 sm:py-20">
